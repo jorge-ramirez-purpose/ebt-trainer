@@ -15,7 +15,7 @@ export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
 
   return (
     <div className={`min-h-screen ${colors.pageBg} flex items-center justify-center p-4 font-serif`}>
-      <div className={`${colors.cardBg} rounded-2xl border ${colors.cardBorder} p-6 w-full max-w-[620px] shadow-2xl`}>
+      <div className={`${colors.cardBg} rounded-2xl border ${colors.cardBorder} p-6 w-full max-w-[900px] shadow-2xl`}>
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <div className="flex gap-0.5">
@@ -32,7 +32,7 @@ export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {days.map((day) => {
             const range = getDayQuestionRange(day);
             const dayProgress = progress[day];
