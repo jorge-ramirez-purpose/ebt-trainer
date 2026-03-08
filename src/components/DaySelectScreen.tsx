@@ -81,13 +81,13 @@ export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
                   >
                     Alle bisherigen
                   </button>
-                  <button
-                    className={`flex-1 ${colors.tertiaryBtnBg} ${colors.tertiaryBtnText} rounded-lg px-3 py-2 text-sm font-bold font-sans cursor-pointer transition-colors ${colors.tertiaryBtnHover}`}
-                    onClick={() => onSelectDay(day, "study")}
-                  >
-                    Lernen
-                  </button>
                 </div>
+                <button
+                  className={`w-full text-xs ${colors.textMuted} font-sans mt-2 cursor-pointer transition-colors hover:text-amber-400`}
+                  onClick={() => onSelectDay(day, "study")}
+                >
+                  Antworten ansehen
+                </button>
               </div>
             );
           })}
