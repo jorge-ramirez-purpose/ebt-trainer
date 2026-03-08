@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npx tsc -b)",
+      "Bash(npx vite build)",
+      "Bash(brew install poppler)",
+      "Bash(python3 -c \"import subprocess; subprocess.run\\([''pdftotext'', ''-h'']\\)\")",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -m pip install PyPDF2)",
+      "Bash(python3:*)",
+      "Bash(npx tsc -b --noEmit)",
+      "Bash(npx tsc --noEmit)",
+      "Bash(npm install @phosphor-icons/react)"
+    ]
+  }
+}
