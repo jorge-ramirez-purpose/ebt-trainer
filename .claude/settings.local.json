@@ -11,7 +11,9 @@
       "Bash(python3:*)",
       "Bash(npx tsc -b --noEmit)",
       "Bash(npx tsc --noEmit)",
-      "Bash(npm install @phosphor-icons/react)"
+      "Bash(npm install @phosphor-icons/react)",
+      "Bash(git add README.md src/components/DaySelectScreen.tsx)",
+      "Bash(git commit:*)"
     ]
   }
 }

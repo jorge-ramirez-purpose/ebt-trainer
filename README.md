@@ -152,3 +152,7 @@ Both the question order and the answer options within each question are shuffled
 ## Data Source
 
 The 310 questions were extracted from the official Einbuergerungstest PDF (`src/assets/einburgerungstest.pdf`). Correct answers were determined by parsing the green-colored text (RGB: 0.031, 0.667, 0.118) in the PDF's content streams.
+
+## Author
+
+[Jorge Ramirez](https://github.com/jorge-ramirez-purpose)

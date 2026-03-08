@@ -88,7 +88,16 @@ export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
         </div>
 
         <div className={`text-center text-xs ${colors.textMuted} mt-6 font-sans`}>
-          Developed by Jorge Ram&iacute;rez and Claude
+          Developed by{" "}
+          <a
+            href="https://github.com/jorge-ramirez-purpose"
+            target="_blank"
+            rel="noreferrer"
+            className={`underline ${colors.textPrimary} hover:text-amber-400`}
+          >
+            Jorge Ram&iacute;rez
+          </a>{" "}
+          and Claude
         </div>
       </div>
     </div>
