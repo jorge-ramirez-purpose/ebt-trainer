@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { questions } from "./data/questions";
 import type { TResult, TScreen, TExamMode } from "./types/question";
-import { buildQuizSet } from "./utils/dayHelpers";
+import { buildQuizSet, getQuestionsForDay } from "./utils/dayHelpers";
 import { loadProgress, saveScore } from "./utils/storage";
 import type { TProgressMap } from "./utils/storage";
 import { DaySelectScreen } from "./components/DaySelectScreen";
 import { QuizScreen } from "./components/QuizScreen";
 import { ResultsScreen } from "./components/ResultsScreen";
 import { ReviewScreen } from "./components/ReviewScreen";
+import { StudyScreen } from "./components/StudyScreen";
 
 const App = () => {
   const [screen, setScreen] = useState<TScreen>("home");
@@ -28,12 +29,21 @@ const App = () => {
   const examLabel =
     examMode === "today"
       ? `Tag ${selectedDay} \u2013 Tagesfragen`
-      : `Tag ${selectedDay} \u2013 Alle bisherigen`;
+      : examMode === "cumulative"
+        ? `Tag ${selectedDay} \u2013 Alle bisherigen`
+        : `Tag ${selectedDay} \u2013 Lernen`;
 
   const handleStartExam = (day: number, mode: TExamMode) => {
-    const quizSet = buildQuizSet(day, mode);
     setSelectedDay(day);
     setExamMode(mode);
+
+    if (mode === "study") {
+      setQuizQuestions(getQuestionsForDay(day));
+      setScreen("study");
+      return;
+    }
+
+    const quizSet = buildQuizSet(day, mode);
     setQuizQuestions(quizSet);
     setCurrent(0);
     setSelected(null);
@@ -60,7 +70,7 @@ const App = () => {
     setResults(newResults);
     if (current + 1 >= quizQuestions.length) {
       const newScore = newResults.filter((result) => result.correct).length;
-      saveScore(selectedDay, examMode, newScore);
+      if (examMode !== "study") saveScore(selectedDay, examMode, newScore);
       setProgress(loadProgress());
       setScreen("results");
     } else {
@@ -81,6 +91,16 @@ const App = () => {
 
   if (screen === "home") {
     return <DaySelectScreen onSelectDay={handleStartExam} progress={progress} />;
+  }
+
+  if (screen === "study") {
+    return (
+      <StudyScreen
+        questions={quizQuestions}
+        examLabel={`Tag ${selectedDay} \u2013 Lernen`}
+        onGoHome={handleGoHome}
+      />
+    );
   }
 
   if (screen === "review") {

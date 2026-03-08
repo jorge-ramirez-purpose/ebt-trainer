@@ -13,9 +13,9 @@ export type TResult = {
 
 export type TOptionState = "default" | "selected" | "correct" | "wrong";
 
-export type TExamMode = "today" | "cumulative";
+export type TExamMode = "today" | "cumulative" | "study";
 
-export type TScreen = "home" | "quiz" | "results" | "review";
+export type TScreen = "home" | "quiz" | "results" | "review" | "study";
 
 export type TDayProgress = {
   todayBest: number | null;

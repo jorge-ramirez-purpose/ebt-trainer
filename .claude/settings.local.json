@@ -23,7 +23,9 @@
       "Bash(git add package.json package-lock.json vite.config.ts playwright.config.ts src/test/ src/utils/__tests__/ src/components/__tests__/ e2e/)",
       "Bash(git push)",
       "Bash(git remote set-url origin git@github.com:jorge-ramirez-purpose/ebt-trainer.git)",
-      "Bash(git remote set-url origin https://github.com/jorge-ramirez-purpose/ebt-trainer.git)"
+      "Bash(git remote set-url origin https://github.com/jorge-ramirez-purpose/ebt-trainer.git)",
+      "Bash(git add src/components/DaySelectScreen.tsx)",
+      "Bash(git add src/types/question.ts src/components/StudyScreen.tsx src/components/DaySelectScreen.tsx src/App.tsx)"
     ]
   }
 }
