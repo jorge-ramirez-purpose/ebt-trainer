@@ -27,11 +27,11 @@ export const StudyScreen = ({ questions, examLabel, onGoHome }: TProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="columns-1 md:columns-2 gap-3 space-y-3">
           {questions.map((question) => (
             <div
               key={question.id}
-              className={`${colors.cardBg} rounded-xl border ${colors.cardBorder} p-4`}
+              className={`${colors.cardBg} rounded-xl border ${colors.cardBorder} p-4 break-inside-avoid`}
             >
               <div className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans mb-1`}>
                 Frage {question.id}

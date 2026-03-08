@@ -25,7 +25,15 @@
       "Bash(git remote set-url origin git@github.com:jorge-ramirez-purpose/ebt-trainer.git)",
       "Bash(git remote set-url origin https://github.com/jorge-ramirez-purpose/ebt-trainer.git)",
       "Bash(git add src/components/DaySelectScreen.tsx)",
-      "Bash(git add src/types/question.ts src/components/StudyScreen.tsx src/components/DaySelectScreen.tsx src/App.tsx)"
+      "Bash(git add src/types/question.ts src/components/StudyScreen.tsx src/components/DaySelectScreen.tsx src/App.tsx)",
+      "Bash(git add src/components/DaySelectScreen.tsx src/components/StudyScreen.tsx)",
+      "Bash(npm install react-router)",
+      "Bash(npm ls react-router)",
+      "Bash(npx playwright test --headed --debug e2e/app.spec.ts -g \"can select\")",
+      "Bash(curl -s http://localhost:5173/tag-1/tagesfragen)",
+      "Bash(npx playwright test e2e/app.spec.ts -g \"can select\")",
+      "Bash(npx playwright test e2e/debug.spec.ts)",
+      "Bash(git add src/App.tsx src/main.tsx src/types/question.ts src/constants/routes.ts src/routes/ e2e/app.spec.ts package.json package-lock.json)"
     ]
   }
 }

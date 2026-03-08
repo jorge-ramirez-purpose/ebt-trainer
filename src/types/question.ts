@@ -15,7 +15,7 @@ export type TOptionState = "default" | "selected" | "correct" | "wrong";
 
 export type TExamMode = "today" | "cumulative" | "study";
 
-export type TScreen = "home" | "quiz" | "results" | "review" | "study";
+export type TQuizPhase = "quiz" | "results" | "review";
 
 export type TDayProgress = {
   todayBest: number | null;

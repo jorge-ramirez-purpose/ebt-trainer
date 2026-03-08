@@ -28,13 +28,11 @@ test.describe("Home screen", () => {
 });
 
 test.describe("Quiz flow", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("/");
-  });
-
   test("starts a quiz when clicking Tagesfragen", async ({ page }) => {
+    await page.goto("/");
     const tagesButtons = page.getByRole("button", { name: "Tagesfragen" });
     await tagesButtons.first().click();
+    await page.waitForURL("**/tag/1/tagesfragen");
 
     await expect(page.getByText("1 / 33")).toBeVisible();
     await expect(page.getByText("Bestätigen")).toBeVisible();
@@ -42,13 +40,11 @@ test.describe("Quiz flow", () => {
   });
 
   test("can select an option and confirm", async ({ page }) => {
-    const tagesButtons = page.getByRole("button", { name: "Tagesfragen" });
-    await tagesButtons.first().click();
+    await page.goto("/tag/1/tagesfragen");
+    await expect(page.getByText("Bestätigen")).toBeVisible();
 
-    const options = page.locator("button").filter({ has: page.locator("span") });
-    const optionButtons = options.filter({ hasText: /^[ABCD]/ });
+    const optionButtons = page.locator("button").filter({ hasText: /^[ABCD]/ });
     await optionButtons.first().click();
-
     await page.getByText("Bestätigen").click();
 
     const feedback = page.getByText(/Richtig|Falsch/);
@@ -56,13 +52,11 @@ test.describe("Quiz flow", () => {
   });
 
   test("can advance to the next question after confirming", async ({ page }) => {
-    const tagesButtons = page.getByRole("button", { name: "Tagesfragen" });
-    await tagesButtons.first().click();
+    await page.goto("/tag/1/tagesfragen");
+    await expect(page.getByText("Bestätigen")).toBeVisible();
 
-    const options = page.locator("button").filter({ has: page.locator("span") });
-    const optionButtons = options.filter({ hasText: /^[ABCD]/ });
+    const optionButtons = page.locator("button").filter({ hasText: /^[ABCD]/ });
     await optionButtons.first().click();
-
     await page.getByText("Bestätigen").click();
     await page.getByText(/Weiter/).click();
 
@@ -70,27 +64,32 @@ test.describe("Quiz flow", () => {
   });
 
   test("can navigate back to home from quiz", async ({ page }) => {
-    const tagesButtons = page.getByRole("button", { name: "Tagesfragen" });
-    await tagesButtons.first().click();
+    await page.goto("/tag/1/tagesfragen");
+    await expect(page.getByText("Bestätigen")).toBeVisible();
 
-    await page.getByText(/Tag 1/).click();
+    await page.getByText("Tag 1", { exact: false }).first().click();
+    await page.waitForURL("**/");
 
     await expect(page.getByText("Einbürgerungstest Trainer")).toBeVisible();
+  });
+
+  test("navigates to correct URL for study mode", async ({ page }) => {
+    await page.goto("/");
+    const studyButtons = page.getByRole("button", { name: "Antworten ansehen" });
+    await studyButtons.first().click();
+    await page.waitForURL("**/tag/1/lernen");
+
+    await expect(page.getByText("33 Fragen")).toBeVisible();
   });
 });
 
 test.describe("Full quiz completion", () => {
   test("completes a Day 10 quiz and sees results", async ({ page }) => {
-    await page.goto("/");
-
-    const day10Tages = page.getByRole("button", { name: "Tagesfragen" }).last();
-    await day10Tages.click();
-
+    await page.goto("/tag/10/tagesfragen");
     await expect(page.getByText(/1 \/ 13/)).toBeVisible();
 
     for (let questionIndex = 0; questionIndex < 13; questionIndex++) {
-      const options = page.locator("button").filter({ has: page.locator("span") });
-      const optionButtons = options.filter({ hasText: /^[ABCD]/ });
+      const optionButtons = page.locator("button").filter({ hasText: /^[ABCD]/ });
       await optionButtons.first().click();
       await page.getByText("Bestätigen").click();
 
@@ -108,14 +107,11 @@ test.describe("Full quiz completion", () => {
   });
 
   test("can return home from results and see score badge", async ({ page }) => {
-    await page.goto("/");
-
-    const day10Tages = page.getByRole("button", { name: "Tagesfragen" }).last();
-    await day10Tages.click();
+    await page.goto("/tag/10/tagesfragen");
+    await expect(page.getByText(/1 \/ 13/)).toBeVisible();
 
     for (let questionIndex = 0; questionIndex < 13; questionIndex++) {
-      const options = page.locator("button").filter({ has: page.locator("span") });
-      const optionButtons = options.filter({ hasText: /^[ABCD]/ });
+      const optionButtons = page.locator("button").filter({ hasText: /^[ABCD]/ });
       await optionButtons.first().click();
       await page.getByText("Bestätigen").click();
 
@@ -127,6 +123,7 @@ test.describe("Full quiz completion", () => {
     }
 
     await page.getByText("Zur Übersicht").click();
+    await page.waitForURL("**/");
     await expect(page.getByText("Einbürgerungstest Trainer")).toBeVisible();
     await expect(page.getByText(/Tages: \d+\/13/)).toBeVisible();
   });
