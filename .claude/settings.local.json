@@ -33,7 +33,9 @@
       "Bash(curl -s http://localhost:5173/tag-1/tagesfragen)",
       "Bash(npx playwright test e2e/app.spec.ts -g \"can select\")",
       "Bash(npx playwright test e2e/debug.spec.ts)",
-      "Bash(git add src/App.tsx src/main.tsx src/types/question.ts src/constants/routes.ts src/routes/ e2e/app.spec.ts package.json package-lock.json)"
+      "Bash(git add src/App.tsx src/main.tsx src/types/question.ts src/constants/routes.ts src/routes/ e2e/app.spec.ts package.json package-lock.json)",
+      "Bash(npm test)",
+      "Bash(git add src/components/DaySelectScreen.tsx src/components/OptionButton.tsx src/components/QuizScreen.tsx src/components/ResultsScreen.tsx src/components/StudyScreen.tsx src/components/__tests__/QuizScreen.test.tsx src/context/ThemeContext.tsx src/routes/QuizRoute.tsx)"
     ]
   }
 }

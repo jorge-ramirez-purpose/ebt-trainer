@@ -51,8 +51,27 @@ export const QuizRoute = () => {
 
   const handleGoHome = () => navigate("/");
 
+  const autoAdvance = examMode === "cumulative";
+
   const handleSelect = (optionIndex: number) => {
     if (confirmed) return;
+    if (autoAdvance) {
+      const newResults: TResult[] = [
+        ...results,
+        { questionId: question!.id, selected: optionIndex, correct: optionIndex === question!.answer },
+      ];
+      setResults(newResults);
+      if (current + 1 >= quizQuestions.length) {
+        const newScore = newResults.filter((result) => result.correct).length;
+        saveScore(day, examMode!, newScore);
+        setPhase("results");
+      } else {
+        setCurrent(current + 1);
+        setSelected(null);
+        setConfirmed(false);
+      }
+      return;
+    }
     setSelected(optionIndex);
   };
 
@@ -123,6 +142,7 @@ export const QuizRoute = () => {
       onNext={handleNext}
       onGoHome={handleGoHome}
       isLast={current + 1 >= quizQuestions.length}
+      autoAdvance={autoAdvance}
     />
   );
 };

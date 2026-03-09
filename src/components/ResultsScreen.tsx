@@ -38,7 +38,7 @@ export const ResultsScreen = ({
             {passed ? "Gut gemacht!" : "Weiter üben!"}
           </h1>
           <div
-            className={`text-5xl font-extrabold my-4 font-serif ${passed ? "text-green-400" : "text-red-400"}`}
+            className={`text-5xl font-extrabold my-4 font-serif ${passed ? colors.correctText : colors.scoreText}`}
           >
             {score}/{total}
           </div>
@@ -59,9 +59,9 @@ export const ResultsScreen = ({
                     key={result.questionId}
                     className={`text-sm ${colors.textSecondary} mb-2 pb-2 border-b ${colors.divider}`}
                   >
-                    <span className="text-red-400 font-bold">#{wrongQuestion.id}</span>{" "}
+                    <span className={`${colors.wrongText} font-bold`}>#{wrongQuestion.id}</span>{" "}
                     {wrongQuestion.question}
-                    <div className="text-green-400 mt-0.5">
+                    <div className={`${colors.correctText} mt-0.5`}>
                       &#10003; {wrongQuestion.options[wrongQuestion.answer]}
                     </div>
                   </div>

@@ -31,7 +31,7 @@ export const StudyScreen = ({ questions, examLabel, onGoHome }: TProps) => {
           {questions.map((question) => (
             <div
               key={question.id}
-              className={`${colors.cardBg} rounded-xl border ${colors.cardBorder} p-4 break-inside-avoid`}
+              className={`${colors.cardBg} ${colors.cardHoverBg} rounded-xl border ${colors.cardBorder} p-4 break-inside-avoid transition-colors`}
             >
               <div className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans mb-1`}>
                 Frage {question.id}
@@ -39,7 +39,7 @@ export const StudyScreen = ({ questions, examLabel, onGoHome }: TProps) => {
               <div className={`text-sm ${colors.textSecondary} leading-relaxed mb-2 font-semibold`}>
                 {question.question}
               </div>
-              <div className="text-sm text-green-400 font-sans font-semibold">
+              <div className={`text-sm ${colors.correctText} font-sans font-semibold`}>
                 &#10003; {question.options[question.answer]}
               </div>
             </div>

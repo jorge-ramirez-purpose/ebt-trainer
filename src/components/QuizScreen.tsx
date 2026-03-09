@@ -17,6 +17,7 @@ type TProps = {
   onNext: () => void;
   onGoHome: () => void;
   isLast: boolean;
+  autoAdvance: boolean;
 };
 
 export const QuizScreen = ({
@@ -32,6 +33,7 @@ export const QuizScreen = ({
   onNext,
   onGoHome,
   isLast,
+  autoAdvance,
 }: TProps) => {
   const { colors } = useTheme();
   const progress = (current / total) * 100;
@@ -58,7 +60,7 @@ export const QuizScreen = ({
           />
         </div>
 
-        <span className="inline-block text-xs text-green-400 bg-green-950 rounded-full px-3 py-0.5 mb-5 font-sans font-semibold">
+        <span className={`inline-block text-xs ${colors.correctBadgeText} ${colors.correctBadgeBg} rounded-full px-3 py-0.5 mb-5 font-sans font-semibold`}>
           &#10003; {score} richtig
         </span>
 
@@ -82,12 +84,12 @@ export const QuizScreen = ({
           ))}
         </div>
 
-        {confirmed && (
+        {!autoAdvance && confirmed && (
           <div
             className={`mb-4 px-4 py-3 rounded-[10px] text-sm font-semibold ${
               selected === question.answer
-                ? "bg-green-950 text-green-300"
-                : "bg-red-950 text-red-300"
+                ? `${colors.correctFeedbackBg} ${colors.correctFeedbackText}`
+                : `${colors.wrongFeedbackBg} ${colors.wrongFeedbackText}`
             }`}
           >
             {selected === question.answer
@@ -96,23 +98,25 @@ export const QuizScreen = ({
           </div>
         )}
 
-        <div className="flex justify-end">
-          {!confirmed ? (
-            <button
-              className={`${colors.accentBg} text-white rounded-[10px] px-6 py-2.5 text-sm font-bold font-sans cursor-pointer transition-colors ${colors.accentHoverBg} ${selected === null ? "opacity-40" : ""}`}
-              onClick={onConfirm}
-            >
-              Bestätigen
-            </button>
-          ) : (
-            <button
-              className={`${colors.accentBg} text-white rounded-[10px] px-6 py-2.5 text-sm font-bold font-sans cursor-pointer transition-colors ${colors.accentHoverBg}`}
-              onClick={onNext}
-            >
-              {isLast ? "Ergebnis anzeigen" : "Weiter \u2192"}
-            </button>
-          )}
-        </div>
+        {!autoAdvance && (
+          <div className="flex justify-end">
+            {!confirmed ? (
+              <button
+                className={`${colors.accentBg} text-white rounded-[10px] px-6 py-2.5 text-sm font-bold font-sans cursor-pointer transition-colors ${colors.accentHoverBg} ${selected === null ? "opacity-40" : ""}`}
+                onClick={onConfirm}
+              >
+                Bestätigen
+              </button>
+            ) : (
+              <button
+                className={`${colors.accentBg} text-white rounded-[10px] px-6 py-2.5 text-sm font-bold font-sans cursor-pointer transition-colors ${colors.accentHoverBg}`}
+                onClick={onNext}
+              >
+                {isLast ? "Ergebnis anzeigen" : "Weiter \u2192"}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

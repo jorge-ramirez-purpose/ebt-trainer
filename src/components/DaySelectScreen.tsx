@@ -56,7 +56,7 @@ export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
                   </div>
                   <div className="flex gap-2 text-right">
                     {todayBest !== null && (
-                      <span className="text-xs text-green-400 bg-green-950 rounded-full px-2 py-0.5 font-sans font-semibold">
+                      <span className={`text-xs ${colors.correctBadgeText} ${colors.correctBadgeBg} rounded-full px-2 py-0.5 font-sans font-semibold`}>
                         Tages: {todayBest}/{range.count}
                       </span>
                     )}

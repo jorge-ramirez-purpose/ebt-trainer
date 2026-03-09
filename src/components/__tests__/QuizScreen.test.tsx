@@ -34,6 +34,7 @@ describe("QuizScreen", () => {
     onNext: vi.fn(),
     onGoHome: vi.fn(),
     isLast: false,
+    autoAdvance: false,
   };
 
   it("renders the question text", () => {
