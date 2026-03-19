@@ -1,5 +1,4 @@
-import { questions } from "../data/questions";
-import type { TResult } from "../types/question";
+import type { TResult, TQuestion } from "../types/question";
 import { PASSING_SCORE } from "../constants/labels";
 import { useTheme } from "../context/ThemeContext";
 
@@ -8,6 +7,7 @@ type TProps = {
   total: number;
   wrongAnswers: TResult[];
   examLabel: string;
+  questions: TQuestion[];
   onRetry: () => void;
   onGoHome: () => void;
   onReview: () => void;
@@ -18,6 +18,7 @@ export const ResultsScreen = ({
   total,
   wrongAnswers,
   examLabel,
+  questions,
   onRetry,
   onGoHome,
   onReview,

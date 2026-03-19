@@ -35,7 +35,21 @@
       "Bash(npx playwright test e2e/debug.spec.ts)",
       "Bash(git add src/App.tsx src/main.tsx src/types/question.ts src/constants/routes.ts src/routes/ e2e/app.spec.ts package.json package-lock.json)",
       "Bash(npm test)",
-      "Bash(git add src/components/DaySelectScreen.tsx src/components/OptionButton.tsx src/components/QuizScreen.tsx src/components/ResultsScreen.tsx src/components/StudyScreen.tsx src/components/__tests__/QuizScreen.test.tsx src/context/ThemeContext.tsx src/routes/QuizRoute.tsx)"
+      "Bash(git add src/components/DaySelectScreen.tsx src/components/OptionButton.tsx src/components/QuizScreen.tsx src/components/ResultsScreen.tsx src/components/StudyScreen.tsx src/components/__tests__/QuizScreen.test.tsx src/context/ThemeContext.tsx src/routes/QuizRoute.tsx)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm install:*)",
+      "Bash(createdb ebt_trainer)",
+      "Read(//Applications/Postgres.app/Contents/Versions/latest/**)",
+      "Bash(brew list:*)",
+      "Bash(export PATH=\"/opt/homebrew/Cellar/libpq/18.1/bin:$PATH\")",
+      "Bash(brew services:*)",
+      "Bash(pg_config --bindir)",
+      "Bash(npx prisma:*)",
+      "Bash(psql -l)",
+      "Bash(npx ts-node:*)",
+      "Bash(pnpm add:*)",
+      "Bash(curl -s \"http://localhost:3001/api/questions?day=1\")",
+      "Bash(git add:*)"
     ]
   }
 }
