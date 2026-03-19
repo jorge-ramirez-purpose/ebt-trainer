@@ -49,7 +49,9 @@
       "Bash(npx ts-node:*)",
       "Bash(pnpm add:*)",
       "Bash(curl -s \"http://localhost:3001/api/questions?day=1\")",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git -c:*)",
+      "Bash(gh pr:*)"
     ]
   }
 }
