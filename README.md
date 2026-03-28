@@ -2,6 +2,9 @@
 
 A web-based study tool for preparing for the German Einbuergerungstest (citizenship test). It covers all 310 official questions, organized into a structured 10-day study plan with progress tracking.
 
+## Link
+https://ebt-trainer.vercel.app/
+
 ## App Screenshot
 <img width="1490" height="816" alt="Screenshot 2026-03-18 at 11 26 05" src="https://github.com/user-attachments/assets/1b4dafe9-f5d6-42f3-a6b2-75c33a837a38" />
 
