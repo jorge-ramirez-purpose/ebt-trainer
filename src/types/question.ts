@@ -1,6 +1,7 @@
 export type TQuestion = {
   id: number;
   question: string;
+  imageUrl?: string;
   options: [string, string, string, string];
   answer: 0 | 1 | 2 | 3;
 };

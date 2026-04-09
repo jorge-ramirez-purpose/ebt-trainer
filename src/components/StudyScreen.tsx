@@ -39,6 +39,13 @@ export const StudyScreen = ({ questions, examLabel, onGoHome }: TProps) => {
               <div className={`text-sm ${colors.textSecondary} leading-relaxed mb-2 font-semibold`}>
                 {question.question}
               </div>
+              {question.imageUrl && (
+                <img
+                  src={question.imageUrl}
+                  alt={`Bild zu Frage ${question.id}`}
+                  className="max-h-[200px] rounded-lg mb-2 mx-auto block"
+                />
+              )}
               <div className={`text-sm ${colors.correctText} font-sans font-semibold`}>
                 &#10003; {question.options[question.answer]}
               </div>

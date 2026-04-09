@@ -1,4 +1,9 @@
 import type { TQuestion } from "../types/question";
+import image26 from "../assets/26.png";
+import image29 from "../assets/29.png";
+import imageWappen from "../assets/56.png";
+import image148 from "../assets/148.png";
+import image160 from "../assets/160.png";
 
 export const questions: TQuestion[] = [
   {
@@ -279,6 +284,7 @@ export const questions: TQuestion[] = [
   {
     id: 26,
     question: "Wie waren die Besatzungszonen Deutschlands nach 1945 verteilt?",
+    imageUrl: image26,
     options: [
       "1 = Großbritannien, 2 = Sowjetunion, 3 = USA, 4 = Frankreich",
       "1 = Großbritannien, 2 = USA, 3 = Sowjetunion, 4 = Frankreich",
@@ -312,6 +318,7 @@ export const questions: TQuestion[] = [
   {
     id: 29,
     question: "Was wollte Willy Brandt mit seinem Kniefall 1970 im ehemaligen jüdischen Ghetto in Warschau ausdrücken?",
+    imageUrl: image29,
     options: [
       "Er sprach ein Gebet am Grab des Unbekannten Soldaten",
       "Er zeigte seine Demut vor dem Warschauer Pakt",
@@ -609,6 +616,7 @@ export const questions: TQuestion[] = [
   {
     id: 56,
     question: "Welches war das Wappen der Deutschen Demokratischen Republik?",
+    imageUrl: imageWappen,
     options: [
       "1",
       "2",
@@ -1082,6 +1090,7 @@ export const questions: TQuestion[] = [
   {
     id: 99,
     question: "Welches ist das Wappen der Bundesrepublik Deutschland?",
+    imageUrl: imageWappen,
     options: [
       "1",
       "2",
@@ -1621,6 +1630,7 @@ export const questions: TQuestion[] = [
   {
     id: 148,
     question: "Was zeigt dieses Bild?",
+    imageUrl: image148,
     options: [
       "Das Bundeskanzleramt in Berlin",
       "Das Bundesratsgebäude in Berlin",
@@ -1753,6 +1763,7 @@ export const questions: TQuestion[] = [
   {
     id: 160,
     question: "Der deutsche Bundespräsident Gustav Heinemann gibt Helmut Schmidt 1974 die Ernennungsurkunde zum deutschen Bundeskanzler. Was gehört zu den Aufgaben der deutschen Bundespräsidentin/des deutschen Bundespräsidenten?",
+    imageUrl: image160,
     options: [
       "Er/Sie kontrolliert die Regierungspartei",
       "Er/Sie schlägt den Kanzler/die Kanzlerin zur Wahl vor",

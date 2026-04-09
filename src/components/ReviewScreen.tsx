@@ -57,6 +57,14 @@ export const ReviewScreen = ({ wrongQuestions, onFinish, onGoHome }: TProps) => 
           {question.question}
         </div>
 
+        {question.imageUrl && (
+          <img
+            src={question.imageUrl}
+            alt={`Bild zu Frage ${question.id}`}
+            className="max-h-[200px] rounded-lg mb-5 mx-auto block"
+          />
+        )}
+
         <div className="flex flex-col gap-2.5 mb-5">
           {question.options.map((option, optionIndex) => (
             <OptionButton
