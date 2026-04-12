@@ -4,6 +4,7 @@ import image29 from "../assets/29.png";
 import imageWappen from "../assets/56.png";
 import image148 from "../assets/148.png";
 import image160 from "../assets/160.png";
+import image212 from "../assets/212.png";
 
 export const questions: TQuestion[] = [
   {
@@ -2336,6 +2337,7 @@ export const questions: TQuestion[] = [
   {
     id: 212,
     question: "Welcher Stimmzettel wäre bei einer Bundestagswahl gültig?",
+    imageUrl: image212,
     options: [
       "1",
       "2",
