@@ -5,6 +5,7 @@ import { getOptionState } from "../utils/getOptionState";
 import { OptionButton } from "./OptionButton";
 import { shuffle } from "../utils/shuffle";
 import { useTheme } from "../context/ThemeContext";
+import { useMarked } from "../context/MarkedContext";
 
 type TProps = {
   wrongQuestions: TQuestion[];
@@ -14,6 +15,7 @@ type TProps = {
 
 export const ReviewScreen = ({ wrongQuestions, onFinish, onGoHome }: TProps) => {
   const { colors } = useTheme();
+  const { markedIds, toggleMark } = useMarked();
   const shuffled = useMemo(
     () =>
       wrongQuestions.map((item) => {
@@ -51,6 +53,18 @@ export const ReviewScreen = ({ wrongQuestions, onFinish, onGoHome }: TProps) => 
           <span className={`text-sm ${colors.textMuted} font-sans`}>
             {index + 1} / {shuffled.length}
           </span>
+        </div>
+
+        <div className="flex justify-between items-center mb-1.5">
+          <span className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans`}>
+            Frage {question.id}
+          </span>
+          <button
+            className={`text-base cursor-pointer transition-colors ${markedIds.has(question.id) ? colors.accentText : colors.textMuted}`}
+            onClick={() => toggleMark(question.id)}
+          >
+            {markedIds.has(question.id) ? "\u2605" : "\u2606"}
+          </button>
         </div>
 
         <div className={`text-[1.05rem] ${colors.textSecondary} leading-relaxed mb-5 font-semibold`}>

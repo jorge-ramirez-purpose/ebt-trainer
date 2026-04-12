@@ -13,5 +13,11 @@ export const HomeRoute = () => {
     navigate(buildPath(day, mode));
   };
 
-  return <DaySelectScreen onSelectDay={handleSelectDay} progress={progress} />;
+  return (
+    <DaySelectScreen
+      onSelectDay={handleSelectDay}
+      onGoMarked={() => navigate("/markiert")}
+      progress={progress}
+    />
+  );
 };

@@ -6,10 +6,11 @@ import { useTheme } from "../context/ThemeContext";
 
 type TProps = {
   onSelectDay: (day: number, mode: TExamMode) => void;
+  onGoMarked: () => void;
   progress: TProgressMap;
 };
 
-export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
+export const DaySelectScreen = ({ onSelectDay, onGoMarked, progress }: TProps) => {
   const { mode, colors } = useTheme();
   const days = Array.from({ length: TOTAL_DAYS }, (_, i) => i + 1);
 
@@ -93,7 +94,14 @@ export const DaySelectScreen = ({ onSelectDay, progress }: TProps) => {
           })}
         </div>
 
-        <div className={`text-center text-xs ${colors.textMuted} mt-6 font-sans`}>
+        <button
+          className={`w-full mt-4 text-sm font-bold font-sans ${colors.accentText} ${colors.accentHoverText} cursor-pointer transition-colors`}
+          onClick={onGoMarked}
+        >
+          &#9733; Markierte Fragen
+        </button>
+
+        <div className={`text-center text-xs ${colors.textMuted} mt-4 font-sans`}>
           Developed by{" "}
           <a
             href="https://github.com/jorge-ramirez-purpose"

@@ -3,6 +3,7 @@ import { LABELS } from "../constants/labels";
 import { getOptionState } from "../utils/getOptionState";
 import { OptionButton } from "./OptionButton";
 import { useTheme } from "../context/ThemeContext";
+import { useMarked } from "../context/MarkedContext";
 
 type TProps = {
   question: TQuestion;
@@ -36,6 +37,7 @@ export const QuizScreen = ({
   autoAdvance,
 }: TProps) => {
   const { colors } = useTheme();
+  const { markedIds, toggleMark } = useMarked();
   const progress = (current / total) * 100;
 
   return (
@@ -64,8 +66,16 @@ export const QuizScreen = ({
           &#10003; {score} richtig
         </span>
 
-        <div className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans mb-1.5`}>
-          Frage {question.id}
+        <div className="flex justify-between items-center mb-1.5">
+          <span className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans`}>
+            Frage {question.id}
+          </span>
+          <button
+            className={`text-base cursor-pointer transition-colors ${markedIds.has(question.id) ? colors.accentText : colors.textMuted}`}
+            onClick={() => toggleMark(question.id)}
+          >
+            {markedIds.has(question.id) ? "\u2605" : "\u2606"}
+          </button>
         </div>
         <div className={`text-[1.05rem] ${colors.textSecondary} leading-relaxed mb-5 font-semibold`}>
           {question.question}

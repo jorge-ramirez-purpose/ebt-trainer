@@ -1,5 +1,6 @@
 import type { TQuestion } from "../types/question";
 import { useTheme } from "../context/ThemeContext";
+import { useMarked } from "../context/MarkedContext";
 
 type TProps = {
   questions: TQuestion[];
@@ -9,6 +10,7 @@ type TProps = {
 
 export const StudyScreen = ({ questions, examLabel, onGoHome }: TProps) => {
   const { colors } = useTheme();
+  const { markedIds, toggleMark } = useMarked();
 
   return (
     <div className={`min-h-screen ${colors.pageBg} p-4 font-serif`}>
@@ -33,8 +35,16 @@ export const StudyScreen = ({ questions, examLabel, onGoHome }: TProps) => {
               key={question.id}
               className={`${colors.cardBg} ${colors.cardHoverBg} rounded-xl border ${colors.cardBorder} p-4 break-inside-avoid transition-colors`}
             >
-              <div className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans mb-1`}>
-                Frage {question.id}
+              <div className="flex justify-between items-center mb-1">
+                <span className={`text-xs ${colors.textMuted} uppercase tracking-widest font-sans`}>
+                  Frage {question.id}
+                </span>
+                <button
+                  className={`text-base cursor-pointer transition-colors ${markedIds.has(question.id) ? colors.accentText : colors.textMuted}`}
+                  onClick={() => toggleMark(question.id)}
+                >
+                  {markedIds.has(question.id) ? "\u2605" : "\u2606"}
+                </button>
               </div>
               <div className={`text-sm ${colors.textSecondary} leading-relaxed mb-2 font-semibold`}>
                 {question.question}
