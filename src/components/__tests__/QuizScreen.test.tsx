@@ -1,12 +1,17 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QuizScreen } from "../QuizScreen";
 import { ThemeProvider } from "../../context/ThemeContext";
+import { MarkedProvider } from "../../context/MarkedContext";
 import type { TQuestion } from "../../types/question";
 
-const renderWithTheme = (ui: React.ReactElement) =>
-  render(<ThemeProvider>{ui}</ThemeProvider>);
+const renderWithProviders = (ui: React.ReactElement) =>
+  render(
+    <ThemeProvider>
+      <MarkedProvider>{ui}</MarkedProvider>
+    </ThemeProvider>,
+  );
 
 const mockQuestion: TQuestion = {
   id: 1,
@@ -21,6 +26,10 @@ const mockQuestion: TQuestion = {
 };
 
 describe("QuizScreen", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   const defaultProps = {
     question: mockQuestion,
     current: 0,
@@ -38,12 +47,12 @@ describe("QuizScreen", () => {
   };
 
   it("renders the question text", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} />);
+    renderWithProviders(<QuizScreen {...defaultProps} />);
     expect(screen.getByText("Was war am 8. Mai 1945?")).toBeInTheDocument();
   });
 
   it("renders all four options", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} />);
+    renderWithProviders(<QuizScreen {...defaultProps} />);
     expect(screen.getByText("Ende des Zweiten Weltkriegs in Europa")).toBeInTheDocument();
     expect(screen.getByText("Tod Adolf Hitlers")).toBeInTheDocument();
     expect(screen.getByText("Wahl von Konrad Adenauer zum Bundeskanzler")).toBeInTheDocument();
@@ -51,29 +60,29 @@ describe("QuizScreen", () => {
   });
 
   it("shows progress counter", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} />);
+    renderWithProviders(<QuizScreen {...defaultProps} />);
     expect(screen.getByText("1 / 33")).toBeInTheDocument();
   });
 
   it("shows Bestätigen button when not confirmed", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} />);
+    renderWithProviders(<QuizScreen {...defaultProps} />);
     expect(screen.getByText("Bestätigen")).toBeInTheDocument();
   });
 
   it("shows Weiter button after confirmation", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} confirmed={true} selected={0} />);
+    renderWithProviders(<QuizScreen {...defaultProps} confirmed={true} selected={0} />);
     expect(screen.getByText(/Weiter/)).toBeInTheDocument();
   });
 
   it("shows Ergebnis anzeigen on the last question", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} confirmed={true} selected={0} isLast={true} />);
+    renderWithProviders(<QuizScreen {...defaultProps} confirmed={true} selected={0} isLast={true} />);
     expect(screen.getByText("Ergebnis anzeigen")).toBeInTheDocument();
   });
 
   it("calls onSelect when clicking an option", async () => {
     const onSelect = vi.fn();
     const user = userEvent.setup();
-    renderWithTheme(<QuizScreen {...defaultProps} onSelect={onSelect} />);
+    renderWithProviders(<QuizScreen {...defaultProps} onSelect={onSelect} />);
     await user.click(screen.getByText("Tod Adolf Hitlers"));
     expect(onSelect).toHaveBeenCalledWith(1);
   });
@@ -81,26 +90,46 @@ describe("QuizScreen", () => {
   it("calls onConfirm when clicking Bestätigen", async () => {
     const onConfirm = vi.fn();
     const user = userEvent.setup();
-    renderWithTheme(<QuizScreen {...defaultProps} selected={0} onConfirm={onConfirm} />);
+    renderWithProviders(<QuizScreen {...defaultProps} selected={0} onConfirm={onConfirm} />);
     await user.click(screen.getByText("Bestätigen"));
     expect(onConfirm).toHaveBeenCalled();
   });
 
   it("shows correct feedback after confirming the right answer", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} confirmed={true} selected={0} />);
+    renderWithProviders(<QuizScreen {...defaultProps} confirmed={true} selected={0} />);
     expect(screen.getByText("✓ Richtig!")).toBeInTheDocument();
   });
 
   it("shows wrong feedback after confirming the wrong answer", () => {
-    renderWithTheme(<QuizScreen {...defaultProps} confirmed={true} selected={1} />);
+    renderWithProviders(<QuizScreen {...defaultProps} confirmed={true} selected={1} />);
     expect(screen.getByText(/Falsch/)).toBeInTheDocument();
   });
 
   it("calls onGoHome when clicking the back button", async () => {
     const onGoHome = vi.fn();
     const user = userEvent.setup();
-    renderWithTheme(<QuizScreen {...defaultProps} onGoHome={onGoHome} />);
+    renderWithProviders(<QuizScreen {...defaultProps} onGoHome={onGoHome} />);
     await user.click(screen.getByText(/Tag 1/));
     expect(onGoHome).toHaveBeenCalled();
+  });
+
+  it("renders the star button as unfilled by default", () => {
+    renderWithProviders(<QuizScreen {...defaultProps} />);
+    expect(screen.getByText("☆")).toBeInTheDocument();
+  });
+
+  it("fills the star when clicking it", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<QuizScreen {...defaultProps} />);
+    await user.click(screen.getByText("☆"));
+    expect(screen.getByText("★")).toBeInTheDocument();
+  });
+
+  it("unfills the star when clicking it again", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<QuizScreen {...defaultProps} />);
+    await user.click(screen.getByText("☆"));
+    await user.click(screen.getByText("★"));
+    expect(screen.getByText("☆")).toBeInTheDocument();
   });
 });
