@@ -5,6 +5,8 @@ import imageWappen from "../assets/56.png";
 import image148 from "../assets/148.png";
 import image160 from "../assets/160.png";
 import image212 from "../assets/212.png";
+import image301 from "../assets/301.jpeg";
+import image310 from "../assets/310.jpeg";
 
 export const questions: TQuestion[] = [
   {
@@ -3317,6 +3319,7 @@ export const questions: TQuestion[] = [
   {
     id: 301,
     question: "Welches Wappen gehört zum Bundesland Berlin?",
+    imageUrl: image301,
     options: [
       "1",
       "2",
@@ -3416,6 +3419,7 @@ export const questions: TQuestion[] = [
   {
     id: 310,
     question: "Welches Bundesland ist Berlin?",
+    imageUrl: image310,
     options: [
       "1",
       "2",
