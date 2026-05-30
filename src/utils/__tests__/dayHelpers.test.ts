@@ -1,21 +1,22 @@
 import { describe, it, expect } from "vitest";
 import { getQuestionsForDay, getCumulativeQuestions, buildQuizSet, getDayQuestionRange } from "../dayHelpers";
+import { questions } from "../../data/questions";
 import { QUESTIONS_PER_DAY } from "../../constants/labels";
 
 describe("getQuestionsForDay", () => {
   it("returns 33 questions for day 1", () => {
-    const result = getQuestionsForDay(1);
+    const result = getQuestionsForDay(1, questions);
     expect(result).toHaveLength(QUESTIONS_PER_DAY);
     expect(result[0]!.id).toBe(1);
   });
 
   it("returns questions starting at the correct offset for day 3", () => {
-    const result = getQuestionsForDay(3);
+    const result = getQuestionsForDay(3, questions);
     expect(result[0]!.id).toBe(67);
   });
 
   it("returns fewer questions for day 10 (last day)", () => {
-    const result = getQuestionsForDay(10);
+    const result = getQuestionsForDay(10, questions);
     expect(result.length).toBeLessThanOrEqual(QUESTIONS_PER_DAY);
     expect(result[0]!.id).toBe(298);
   });
@@ -23,15 +24,15 @@ describe("getQuestionsForDay", () => {
 
 describe("getCumulativeQuestions", () => {
   it("returns 33 questions for day 1", () => {
-    expect(getCumulativeQuestions(1)).toHaveLength(QUESTIONS_PER_DAY);
+    expect(getCumulativeQuestions(1, questions)).toHaveLength(QUESTIONS_PER_DAY);
   });
 
   it("returns 66 questions for day 2", () => {
-    expect(getCumulativeQuestions(2)).toHaveLength(QUESTIONS_PER_DAY * 2);
+    expect(getCumulativeQuestions(2, questions)).toHaveLength(QUESTIONS_PER_DAY * 2);
   });
 
   it("includes questions from all previous days", () => {
-    const result = getCumulativeQuestions(3);
+    const result = getCumulativeQuestions(3, questions);
     expect(result[0]!.id).toBe(1);
     expect(result).toHaveLength(QUESTIONS_PER_DAY * 3);
   });
@@ -39,7 +40,7 @@ describe("getCumulativeQuestions", () => {
 
 describe("buildQuizSet", () => {
   it("returns shuffled questions for 'today' mode", () => {
-    const result = buildQuizSet(1, "today");
+    const result = buildQuizSet(1, "today", questions);
     expect(result).toHaveLength(QUESTIONS_PER_DAY);
     const ids = result.map((question) => question.id).sort((first, second) => first - second);
     const expectedIds = Array.from({ length: QUESTIONS_PER_DAY }, (_, index) => index + 1);
@@ -47,13 +48,13 @@ describe("buildQuizSet", () => {
   });
 
   it("returns 33 questions for 'cumulative' mode", () => {
-    const result = buildQuizSet(5, "cumulative");
+    const result = buildQuizSet(5, "cumulative", questions);
     expect(result).toHaveLength(QUESTIONS_PER_DAY);
   });
 
   it("shuffles answer options", () => {
-    const original = getQuestionsForDay(1);
-    const quizSet = buildQuizSet(1, "today");
+    const original = getQuestionsForDay(1, questions);
+    const quizSet = buildQuizSet(1, "today", questions);
     const someOptionsShuffled = quizSet.some((quizQuestion) => {
       const originalQuestion = original.find((item) => item.id === quizQuestion.id)!;
       return quizQuestion.options[0] !== originalQuestion.options[0];
@@ -62,8 +63,8 @@ describe("buildQuizSet", () => {
   });
 
   it("maintains correct answer mapping after shuffling", () => {
-    const original = getQuestionsForDay(1);
-    const quizSet = buildQuizSet(1, "today");
+    const original = getQuestionsForDay(1, questions);
+    const quizSet = buildQuizSet(1, "today", questions);
     for (const quizQuestion of quizSet) {
       const originalQuestion = original.find((item) => item.id === quizQuestion.id)!;
       const correctOption = originalQuestion.options[originalQuestion.answer];

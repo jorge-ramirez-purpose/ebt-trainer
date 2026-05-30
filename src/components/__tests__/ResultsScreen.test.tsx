@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ResultsScreen } from "../ResultsScreen";
 import { ThemeProvider } from "../../context/ThemeContext";
+import { questions } from "../../data/questions";
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<ThemeProvider>{ui}</ThemeProvider>);
@@ -13,6 +14,7 @@ describe("ResultsScreen", () => {
     total: 33,
     wrongAnswers: [],
     examLabel: "Tag 1 – Tagesfragen",
+    questions,
     onRetry: vi.fn(),
     onGoHome: vi.fn(),
     onReview: vi.fn(),
